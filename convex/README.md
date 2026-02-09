@@ -1,20 +1,24 @@
 # Convex Backend
 
-The Convex schema and functions are deployed separately.
+The Convex schema and functions live in the main Tawkie project at `~/dev/tawkie/convex/`.
 
-## Deploy
+## Deployment
+
+The Convex backend is deployed separately from the Next.js frontend:
 
 ```bash
-cd convex
+cd ~/dev/tawkie/convex
 npx convex deploy
 ```
 
 ## Schema
 
-See `convex/README.md` for the full schema.
+Located at `~/dev/tawkie/convex/schema.ts`
 
-## Files
+## Files (in ~/dev/tawkie/convex/)
 
 - `schema.ts` - Database schema
-- `memos.ts` - Memo CRUD operations
+- `memos.ts` - Memo CRUD operations  
 - `claims.ts` - One-time claim flow
+
+This directory (`tawkie.dev/convex/`) only contains README documentation.
