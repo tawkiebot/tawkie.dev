@@ -20,16 +20,17 @@ Bridge between Talkie (voice app) and OpenClaw.
 ## Components
 
 - `/api` — Claim URL handlers (Next.js API routes)
-- `/convex` — Convex documentation (actual backend at `~/dev/tawkie/convex/`)
-- `/workers` — Cloudflare Worker templates
-- `/skill` — ClawHub skill for OpenClaw
-- `/docs` — tawkie.dev documentation
+- `/app` — Next.js app router pages
+- `/docs` — Documentation
+- `/skill` — ClawHub skills for OpenClaw
+
+The Convex backend lives in the [tawkie repo](https://github.com/tawkiebot/tawkie/tree/main/src/functions).
 
 ## Quick Start
 
 ```bash
-# Deploy Convex backend (separate repo at ~/dev/tawkie/convex/)
-cd ~/dev/tawkie/convex
+# Deploy Convex backend
+cd ~/dev/tawkie
 npx convex deploy
 
 # Deploy Cloudflare Worker

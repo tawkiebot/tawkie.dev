@@ -1,136 +1,125 @@
----
-name: tawkie-setup
-description: Set up Tawkie infrastructure for your Claw.
-emoji: 🦞
----
+# SKILL: tawkie-setup
 
-# Tawkie Setup
+**Purpose:** Help users set up their own Tawkie infrastructure (BYO - Bring Your Own)
 
-Guide the user through setting up their Tawkie infrastructure.
+**When to use:** User wants to connect Talkie to their own R2/Convex/Telegram
 
-## Step 1: Storage (Required)
+## Prerequisites
 
-The user needs somewhere to store audio files.
+User needs:
+1. **Cloudflare R2** bucket (10GB free, $0 egress) - https://developers.cloudflare.com/r2/
+2. **Convex** account - https://convex.dev/
+3. **Telegram bot** - @BotFather on Telegram
 
-**Recommended: Cloudflare R2**
-- 10 GB free storage
-- $0 egress fees (this is the killer feature)
-- S3-compatible API
+## Setup Steps
+
+### Step 1: Convex Setup
 
 ```bash
-# Create R2 bucket
-wrangler r2 bucket create tawkie-memos
-```
-
-**Alternative: Backblaze B2**
-- 10 GB free storage
-- 1 GB/day egress free
-
-**Skip: AWS S3**
-- Free tier expires
-- Egress costs money
-- Too complex for DIY users
-
-## Step 2: Database (Optional)
-
-For memo metadata and sharing features.
-
-**Recommended: Convex**
-- Real-time subscriptions
-- TypeScript schema + functions
-- Free tier: 1M function calls/month
-
-```bash
-# Deploy Convex schema
+cd ~/dev/tawkie/convex
+npx convex login
 npx convex deploy
 ```
 
-**Skip for MVP**
-- Telegram message IS the database
-- R2 stores audio
-- No additional database needed
+This deploys:
+- `schema.ts` - Database tables (memos, claims, connections)
+- `memos.ts` - CRUD operations for voice memos
+- `claims.ts` - One-time config import flow
 
-## Step 3: Notifications (Required)
-
-How the Claw receives memo notifications.
-
-**Telegram (Recommended)**
-- Already have Telegram for OpenClaw
-- Free, unlimited
-- BotFather setup is conversational
+### Step 2: Get Convex Environment Variables
 
 ```bash
-# User creates bot via @BotFather
-# Copy bot token and chat ID
+npx convex env --help
 ```
 
-## Generate Config
-
-Once the user has all pieces, generate their config:
-
-```json
-{
-  "version": 1,
-  "name": "My Claw",
-  "storage": {
-    "provider": "r2",
-    "bucket": "tawkie-memos",
-    "endpoint": "https://abc123.r2.cloudflarestorage.com",
-    "accessKeyId": "...",
-    "secretAccessKey": "..."
-  },
-  "notify": {
-    "provider": "telegram",
-    "botToken": "123456:ABC...",
-    "chatId": "-100123456789"
-  }
-}
+Add to `~/dev/tawkie/.env`:
+```env
+CONVEX_URL="https://your-project.convex.cloud"
+CONVEX_DEPLOY_KEY="your_deploy_key"
 ```
 
-## Tell the User
+### Step 3: R2 Configuration
 
-Once config is generated:
+Add to `~/dev/tawkie/.env`:
+```env
+R2_ACCOUNT_ID="your_cloudflare_account_id"
+R2_ACCESS_KEY_ID="your_r2_access_key"
+R2_SECRET_ACCESS_KEY="your_r2_secret_key"
+R2_BUCKET_NAME="tawkie-memos"
+```
 
-1. "Here's your tawkie-config.json"
-2. "Paste this into Talkie → Settings → Tawkie"
-3. "Or open: talkie://tawkie/connect?token=abc123"
+### Step 4: Telegram Bot
 
-## Example Conversation
+Get bot token from @BotFather:
+1. Message @BotFather on Telegram
+2. `/newbot` - Follow prompts
+3. Copy the HTTP API token
+
+Add to `~/dev/tawkie/.env`:
+```env
+TELEGRAM_BOT_TOKEN="your_bot_token"
+TELEGRAM_CHAT_ID="your_chat_id"
+```
+
+## File Locations
+
+| Component | Location |
+|-----------|----------|
+| Voice AI | `~/dev/tawkie/src/` |
+| Convex Backend | `~/dev/tawkie/convex/` |
+| Website (Vercel) | `~/dev/tawkie.dev/` |
+| ClawHub Skill | `~/.openclaw/skills/tawkie/` |
+
+## Architecture
 
 ```
-User: Help me set up Tawkie
-Claw: I'll walk you through setting up your Tawkie infrastructure:
-
-1. STORAGE (required)
-   I'll create a Cloudflare R2 bucket for you. R2 has:
-   • 10 GB free storage
-   • Zero egress fees (audio playback is free!)
-   
-   Run: wrangler r2 bucket create tawkie-memos
-   Done? Let me know when you're ready for step 2.
-
-User: Done!
-Claw: Great! Now for notifications. I'll set up your Telegram bot.
-   
-   1. Open Telegram, search for @BotFather
-   2. Send /newbot
-   3. Name it (e.g., "My Tawkie")
-   4. Copy the bot token
-   5. Create a group and add the bot
-   6. Get the group chat ID
-   
-   Paste your bot token and chat ID when ready.
-
-User: [pastes credentials]
-Claw: Perfect! Testing notification...
-✅ Notification sent successfully!
-
-Generating your config...
-📋 Here's your tawkie-config.json:
-[JSON appears]
-
-Next:
-• Open Talkie → Settings → Tawkie
-• Paste the config or open: talkie://tawkie/connect?token=abc123
-• You're done! 🎉
+┌─────────────────────────────────────────────────────┐
+│ User's Infrastructure (owned by user)              │
+│                                                     │
+│  ┌─────────┐    ┌─────────┐    ┌─────────────┐     │
+│  │ R2      │    │ Convex  │    │ Telegram    │     │
+│  │ Storage │    │ Database│    │ Bot          │     │
+│  └────┬────┘    └────┬────┘    └──────┬──────┘     │
+│       │              │                 │            │
+│       └──────────────┼─────────────────┘            │
+│                      ▼                              │
+│              ┌─────────────────┐                     │
+│              │  Talkie App     │                     │
+│              │  (Voice Input)  │                     │
+│              └────────┬────────┘                     │
+│                       │                              │
+│                       ▼                              │
+│              ┌─────────────────┐                     │
+│              │  OpenClaw        │                     │
+│              │  (Automation)    │                     │
+│              └─────────────────┘                     │
+└─────────────────────────────────────────────────────┘
 ```
+
+## Commands Reference
+
+| Task | Command |
+|------|---------|
+| Deploy Convex | `cd ~/dev/tawkie/convex && npx convex deploy` |
+| View logs | `npx convex logs` |
+| Run dev server | `npx convex dev` |
+| Open dashboard | `npx convex dashboard` |
+
+## Troubleshooting
+
+**"Cannot find module './_generated/server'"**
+→ Run `npx convex deploy` to generate types
+
+**"R2 access denied"**
+→ Check R2 credentials in `.env`
+→ Verify bucket name matches
+
+**"Telegram bot not responding"**
+→ Test bot token with: `curl https://api.telegram.org/bot<TOKEN>/getMe`
+
+## Notes
+
+- Tawkie follows **BYO infrastructure** - users own their data
+- No data flows through tawkie.dev servers
+- Convex functions run in user's cloud
+- Zero cost for basic usage (R2 10GB free, Convex free tier)

@@ -42,7 +42,7 @@ export default function Home() {
           flexWrap: 'wrap',
           marginBottom: '3rem',
         }}>
-          <a href="https://github.com/tawkie" style={{
+          <a href="https://github.com/tawkiebot" style={{
             color: '#fff',
             textDecoration: 'none',
             padding: '0.75rem 1.5rem',
@@ -50,7 +50,7 @@ export default function Home() {
             borderRadius: '8px',
             transition: 'all 0.2s',
           }}>GitHub</a>
-          <a href="https://moltbook.com/@tawkie" style={{
+          <a href="https://moltbook.com/@tawkiebot" style={{
             color: '#fff',
             textDecoration: 'none',
             padding: '0.75rem 1.5rem',
@@ -66,14 +66,6 @@ export default function Home() {
             borderRadius: '8px',
             transition: 'all 0.2s',
           }}>Twitter</a>
-          <a href="https://discord.gg/clawd" style={{
-            color: '#fff',
-            textDecoration: 'none',
-            padding: '0.75rem 1.5rem',
-            border: '1px solid #333',
-            borderRadius: '8px',
-            transition: 'all 0.2s',
-          }}>Discord</a>
         </div>
         <p style={{
           fontSize: '0.85rem',
