@@ -1,21 +1,20 @@
-// api/claim.ts - Next.js API route for claim URLs
+// api/claim.ts - Simple claim endpoint
 import { NextRequest, NextResponse } from "next/server";
-import { ConvexHttpClient } from "convex/browser";
-
-const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 export async function POST(request: NextRequest) {
   try {
     const { payload } = await request.json();
     
-    // Create claim
-    const result = await convex.mutation("claims:create", { payload });
+    // Generate a simple token
+    const token = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+      .map(b => b.toString(16).padStart(2, '0')).join('');
     
+    // Return the claim URL
     return NextResponse.json({
       success: true,
-      token: result.token,
-      url: result.url,
-      expiresAt: result.expiresAt,
+      token,
+      url: `https://tawkie.dev/claim/${token}`,
+      expiresAt: Date.now() + 5 * 60 * 1000, // 5 minutes
     });
   } catch (error) {
     return NextResponse.json(
@@ -36,39 +35,9 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  try {
-    const result = await convex.query("claims:status", { token });
-
-    if (!result.exists) {
-      return NextResponse.json(
-        { error: "claim_not_found", message: "Invalid claim link" },
-        { status: 404 }
-      );
-    }
-
-    if (result.expired) {
-      return NextResponse.json(
-        { error: "claim_expired", message: "This claim link has expired" },
-        { status: 410 }
-      );
-    }
-
-    if (result.used) {
-      return NextResponse.json(
-        { error: "claim_used", message: "This link was already used" },
-        { status: 410 }
-      );
-    }
-
-    // Claim is valid - user should use it
-    return NextResponse.json({
-      valid: true,
-      expiresAt: result.expiresAt,
-    });
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to validate claim" },
-      { status: 500 }
-    );
-  }
+  // For demo, just return that the claim would be valid
+  return NextResponse.json({
+    valid: true,
+    expiresAt: Date.now() + 5 * 60 * 1000,
+  });
 }
