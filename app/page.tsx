@@ -50,7 +50,7 @@ export default function Home() {
             borderRadius: '8px',
             transition: 'all 0.2s',
           }}>GitHub</a>
-          <a href="https://moltbook.com/@tawkiebot" style={{
+          <a href="https://www.moltbook.com/u/tawkie" style={{
             color: '#fff',
             textDecoration: 'none',
             padding: '0.75rem 1.5rem',
