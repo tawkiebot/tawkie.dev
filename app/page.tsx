@@ -66,14 +66,14 @@ export default function Home() {
             borderRadius: '8px',
             transition: 'all 0.2s',
           }}>Twitter</a>
-          <a href="#" style={{
-            color: '#666',
+          <a href="https://discord.gg/DbbHB7g3" style={{
+            color: '#fff',
             textDecoration: 'none',
             padding: '0.75rem 1.5rem',
             border: '1px solid #333',
             borderRadius: '8px',
-            cursor: 'not-allowed',
-          }}>Discord (coming soon)</a>
+            transition: 'all 0.2s',
+          }}>Discord</a>
         </div>
         <p style={{
           fontSize: '0.85rem',
