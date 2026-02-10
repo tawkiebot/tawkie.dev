@@ -1,196 +1,46 @@
-# tawkie
+# tawkie.dev (frontend)
 
-> Bridge between Talkie voice AI and OpenClaw automation
+Next.js 14 site for the Tawkie bridge: landing page, docs, API routes, architecture diagrams.
 
-## Critical Context
+## Commands
 
-**IMPORTANT:** Read these rules before making any changes:
+```bash
+npm run dev       # Next.js dev server
+npm run build     # Build + typecheck
+npx vercel --prod # Deploy to production
+npx @arach/dewey audit    # Check docs coverage
+npx @arach/dewey generate # Regenerate docs artifacts
+```
 
-- Tawkie is a bridge, not a product - agent-assisted setup, not seamless automation
-- All API keys stay on user machines - zero data through Tawkie servers
-- Voice commands flow: Talkie → Telegram → OpenClaw → Tawkie.dev → Convex
-- Use @arach packages: @arach/speakeasy for TTS, @arach/arc for diagrams
+## Structure
 
-## Project Structure
+```
+app/
+├── layout.tsx            # Root layout
+├── page.tsx              # Landing page
+├── globals.css           # Global styles (Tailwind 4)
+├── docs/                 # Docs pages
+api/                      # API route handlers
+src/diagrams/             # Arc architecture diagrams
+docs/                     # Markdown docs (processed by Dewey)
+skill/                    # OpenClaw/ClawHub skills
+convex/                   # Convex client config
+```
 
-| Component | Path | Purpose |
-|-----------|------|---------|
-| Main | `app/` | |
-| Diagrams | `src/diagrams/` | |
-| Docs | `docs/` | |
+## Conventions
+
+- TypeScript strict mode, Next.js App Router
+- Tailwind 4 via `@tailwindcss/postcss`
+- Dark mode default (#0a0a0a background), minimal design
+- Use `@arach/arc` for diagrams — import via ArcDiagram component
+- Use `@arach/dewey` for docs — markdown in `docs/`, config in `dewey.config.ts`
+- Path alias: `@/*` maps to project root
+- Skills follow the OpenClaw/ClawHub markdown format with YAML frontmatter
 
 ## Quick Navigation
 
-- Working with **TTS**? → Uses @arach/speakeasy - see src/functions/tts.ts
-- Working with **diagram**? → Arc diagrams in src/diagrams/ - import to pages via ArcDiagram component
-- Working with **docs**? → Markdown docs in docs/ - processed by Dewey
-- Working with **api**? → Next.js API routes in app/api/
-
-## Overview
-
-> Tawkie - Bridge between Talkie voice AI and OpenClaw automation
-
-# Overview
-
-**Tawkie** is a bridge between [Talkie](https://usetalkie.com) (voice AI app) and [OpenClaw](https://openclaw.ai) (automation platform).
-
-> An OpenClaw agent exploring voice AI, automation, and the future of autonomous agents.
-
-## What is Tawkie?
-
-Tawkie connects your voice commands (via Talkie) to OpenClaw's automation workflows. The architecture follows a **BYO (Bring Your Own) infrastructure** model — you own your data, we just help build.
-
-## Key Features
-
-- **Voice-First Automation** - Speak to Talkie, trigger OpenClaw workflows
-- **Bidirectional Bridge** - Talkie ↔ OpenClaw via Telegram
-- **Zero Data Retention** - No data flows through Tawkie servers
-- **Agent-Assisted Setup** - DIY configuration, Tawkie just helps
-
-## Architecture
-
-```
-Talkie → Telegram → OpenClaw → Tawkie.dev → Convex
-```
-
-See [Architecture](/docs/architecture) for the interactive diagram.
-
-## Quick Links
-
-- [Setup Guide](/docs/setup) - DIY infrastructure setup
-- [Architecture](/docs/architecture) - System design
-- [GitHub](https://github.com/tawkiebot) - Source code
-
-## Project Context
-
-- **Type**: Agent / Bridge
-- **Stack**: Next.js, Convex, OpenClaw, @arach/speakeasy
-- **License**: Open source
-
-## Quickstart
-
-> Get started with Tawkie in 5 minutes
-
-# Quickstart
-
-Get Tawkie running in 5 minutes.
-
-## Prerequisites
-
-- [OpenClaw](https://openclaw.ai) account
-- [Talkie](https://usetalkie.com) app (iOS/Mac)
-- Node.js >= 18
-- npm, pnpm, or yarn
-- Vercel account (for deployment)
-- Convex account (for database)
-
-## Step 1: Clone the Repos
-
-```bash
-git clone https://github.com/tawkiebot/tawkie.dev
-git clone https://github.com/tawkiebot/tawkie
-```
-
-## Step 2: Configure Environment
-
-Create `.env` in the `tawkie` directory:
-
-```bash
-ELEVENLABS_API_KEY=sk_...
-MOLTBOOK_API_KEY=moltbook_sk_...
-AGENTMAIL_API_KEY=am_...
-CONVEX_DEV_TOKEN=dev:...
-TELEGRAM_BOT_TOKEN=...
-DISCORD_BOT_TOKEN=...
-```
-
-## Step 3: Deploy to Vercel
-
-```bash
-cd tawkie.dev
-npx vercel --prod
-```
-
-## Step 4: Connect OpenClaw
-
-Configure your Telegram/Discord bots in OpenClaw to point to the deployed URLs.
-
-## Verify Installation
-
-Visit https://tawkie.dev to see the landing page, then check /docs for full documentation.
-
-## Next Steps
-
-- [Architecture](/docs/architecture) - Understand the system
-- [Setup Guide](/docs/setup) - Detailed setup with all components
-
-## Setup
-
-# Setup Guide
-
-Tawkie uses a **BYO (Bring Your Own)** infrastructure model. You own your data.
-
-## Prerequisites
-
-1. **Cloudflare R2** bucket - [Sign up](https://developers.cloudflare.com/r2/)
-2. **Convex** account - [Sign up](https://convex.dev/)
-3. **Telegram bot** - [Create via @BotFather](https://t.me/BotFather)
-
-## Step 1: Set Up R2
-
-```bash
-# Create R2 bucket in Cloudflare dashboard
-# Get your R2 credentials:
-# - Account ID
-# - Access Key ID
-# - Secret Access Key
-```
-
-Add to `~/dev/tawkie/.env`:
-```env
-R2_ACCOUNT_ID="your_account_id"
-R2_ACCESS_KEY_ID="your_access_key"
-R2_SECRET_ACCESS_KEY="your_secret_key"
-R2_BUCKET_NAME="tawkie-memos"
-```
-
-## Step 2: Set Up Convex
-
-```bash
-cd ~/dev/tawkie
-npx convex login
-npx convex dev  # Test locally
-npx convex deploy  # Deploy to production
-```
-
-Get your Convex URL and add to `.env`:
-```env
-CONVEX_URL="https://your-project.convex.cloud"
-```
-
-## Step 3: Set Up Telegram Bot
-
-1. Message @BotFather on Telegram
-2. Run `/newbot` and follow prompts
-3. Copy the bot token
-
-Add to `.env`:
-```env
-TELEGRAM_BOT_TOKEN="your_bot_token"
-TELEGRAM_CHAT_ID="your_chat_id"
-```
-
-## Step 4: Test
-
-```bash
-cd ~/dev/tawkie
-npm run dev
-```
-
-## Next Steps
-
-- [Architecture Overview](architecture.md)
-- [API Reference](api.md)
-
----
-Generated by [Dewey](https://github.com/arach/dewey) | Last updated: 2026-02-10
+- **Diagrams** → `src/diagrams/` (Arc format)
+- **Docs** → `docs/` (Dewey markdown)
+- **API routes** → `app/api/` or `api/`
+- **Skills** → `skill/` (ClawHub format)
+- **Styles** → `app/globals.css` (Tailwind 4)

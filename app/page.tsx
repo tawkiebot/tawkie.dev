@@ -233,6 +233,22 @@ export default function Home() {
         }}>
           © 2026 tawkie
         </p>
+        <a
+          href="/seb"
+          style={{
+            display: "block",
+            color: "#262626",
+            fontSize: "0.65rem",
+            marginTop: "2rem",
+            textDecoration: "none",
+            opacity: 0.3,
+            transition: "opacity 0.3s ease",
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.opacity = "0.7"}
+          onMouseLeave={(e) => e.currentTarget.style.opacity = "0.3"}
+        >
+          for Seb 🤫
+        </a>
       </footer>
     </div>
   );
