@@ -1,3 +1,8 @@
+"use client"
+
+import { ArcDiagram } from '@arach/arc'
+import tawkieArchitecture from '../diagrams/tawkie-architecture.diagram'
+
 export default function ArchitecturePage() {
   return (
     <html lang="en">
@@ -7,14 +12,12 @@ export default function ArchitecturePage() {
         <style>{`
           a:hover { color: #e5e5e5 !important; border-color: #404040 !important; }
           .link-card:hover { border-color: #262626; color: #e5e5e5; }
-          code { background: #171717; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
-          pre { background: #171717; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+          code { background: #171717; padding: 0.2rem 0.4rem; border-radius: 4px; fontSize: 0.85em; }
+          pre { background: #171717; padding: 1rem; borderRadius: 6px; overflow-x: auto; }
           pre code { background: none; padding: 0; }
           li { margin-bottom: 0.5rem; color: #737373; }
           li strong { color: #a3a3a3; }
-          .diagram { background: #0f0f0f; border: 1px solid #171717; border-radius: 8px; padding: 2rem; margin: 1.5rem 0; text-align: center; }
-          .diagram-row { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem; }
-          .diagram-box { background: linear-gradient(145deg, #171717 0%, #0f0f0f 100%); border: 1px solid #262626; border-radius: 6px; padding: 1rem 1.5rem; min-width: 120px; }
+          .diagram { background: #0f0f0f; border: 1px solid #171717; border-radius: 8px; padding: 2rem; margin: 1.5rem 0; }
         `}</style>
       </head>
       <body style={{
@@ -71,7 +74,7 @@ export default function ArchitecturePage() {
           </div>
         </nav>
 
-        <div style={{ paddingTop: "6rem", maxWidth: "800px", margin: "0 auto", paddingLeft: "2rem", paddingRight: "2rem", paddingBottom: "4rem" }}>
+        <div style={{ paddingTop: "6rem", maxWidth: "900px", margin: "0 auto", paddingLeft: "2rem", paddingRight: "2rem", paddingBottom: "4rem" }}>
           <div style={{ marginBottom: "2rem" }}>
             <a href="/docs" style={{ color: "#525252", textDecoration: "none", fontSize: "0.85rem" }}>← Back to Docs</a>
           </div>
@@ -80,32 +83,28 @@ export default function ArchitecturePage() {
             fontSize: "2rem",
             fontWeight: 300,
             letterSpacing: "0.05em",
-            marginBottom: "3rem",
+            marginBottom: "2rem",
           }}>
             Architecture
           </h1>
 
-          <section style={{ marginBottom: "3rem" }}>
+          <section style={{ marginBottom: "2rem" }}>
             <p style={{ color: "#737373", lineHeight: 1.8, fontSize: "0.95rem", marginBottom: "2rem" }}>
               Tawkie is a bridge between Talkie (voice AI on your devices) and OpenClaw (automation in the cloud).
-              The architecture prioritizes <strong>zero data retention</strong> — everything flows through your infrastructure.
+              The architecture prioritizes <strong style={{ color: "#a3a3a3" }}>zero data retention</strong> — everything flows through your infrastructure.
             </p>
 
             <div className="diagram">
-              <div className="diagram-row">
-                <div className="diagram-box">🎤 Talkie</div>
-                <div style={{ alignSelf: "center", color: "#525252" }}>→</div>
-                <div className="diagram-box">📱 Telegram</div>
-              </div>
-              <div style={{ color: "#525252", fontSize: "0.85rem", marginBottom: "1rem" }}>↓</div>
-              <div className="diagram-row">
-                <div className="diagram-box">🤖 OpenClaw</div>
-                <div style={{ alignSelf: "center", color: "#525252" }}>↔</div>
-                <div className="diagram-box">🌐 Tawkie.dev</div>
-                <div style={{ alignSelf: "center", color: "#525252" }}>↔</div>
-                <div className="diagram-box">🗄️ Convex</div>
-              </div>
+              <ArcDiagram 
+                data={tawkieArchitecture} 
+                mode="dark" 
+                theme="cool"
+                interactive={true}
+              />
             </div>
+            <p style={{ color: "#404040", fontSize: "0.75rem", textAlign: "center", marginTop: "0.5rem" }}>
+              Interactive diagram — zoom and pan enabled
+            </p>
           </section>
 
           <section style={{ marginBottom: "3rem" }}>
@@ -137,7 +136,7 @@ export default function ArchitecturePage() {
               <div style={{ padding: "1rem", background: "linear-gradient(145deg, #0f0f0f 0%, #0a0a0a 100%)", border: "1px solid #171717", borderRadius: "6px" }}>
                 <h3 style={{ fontSize: "0.95rem", fontWeight: 500, marginBottom: "0.5rem", color: "#d4d4d4" }}>Tawkie.dev</h3>
                 <p style={{ color: "#525252", fontSize: "0.8rem", lineHeight: 1.6 }}>
-                  Web UI and API layer for memos, claims, and public profile pages at <code>talkie.to/{`{username}`}</code>.
+                  Web UI and API layer for memos, claims, and public profile pages.
                 </p>
               </div>
 
@@ -217,5 +216,5 @@ export default function ArchitecturePage() {
         </footer>
       </body>
     </html>
-  );
+  )
 }
