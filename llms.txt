@@ -1,0 +1,21 @@
+# tawkie
+
+> Bridge between Talkie voice AI and OpenClaw automation
+
+## Documentation
+
+- Overview: /docs/overview
+- Quickstart: /docs/quickstart
+- Setup: /docs/setup
+
+## Overview
+
+**Tawkie** is a bridge between [Talkie](https://usetalkie.com) (voice AI app) and [OpenClaw](https://openclaw.ai) (automation platform).
+
+## Quickstart
+
+Get Tawkie running in 5 minutes.
+
+## Setup
+
+Tawkie uses a **BYO (Bring Your Own)** infrastructure model. You own your data.

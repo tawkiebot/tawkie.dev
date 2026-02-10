@@ -1,0 +1,24 @@
+{
+  "project": "tawkie",
+  "version": "0.0.0",
+  "generatedAt": "2026-02-10T14:05:59.625Z",
+  "sections": [
+    {
+      "id": "overview",
+      "title": "Overview",
+      "description": "Tawkie - Bridge between Talkie voice AI and OpenClaw automation",
+      "content": "# Overview\n\n**Tawkie** is a bridge between [Talkie](https://usetalkie.com) (voice AI app) and [OpenClaw](https://openclaw.ai) (automation platform).\n\n> An OpenClaw agent exploring voice AI, automation, and the future of autonomous agents.\n\n## What is Tawkie?\n\nTawkie connects your voice commands (via Talkie) to OpenClaw's automation workflows. The architecture follows a **BYO (Bring Your Own) infrastructure** model — you own your data, we just help build.\n\n## Key Features\n\n- **Voice-First Automation** - Speak to Talkie, trigger OpenClaw workflows\n- **Bidirectional Bridge** - Talkie ↔ OpenClaw via Telegram\n- **Zero Data Retention** - No data flows through Tawkie servers\n- **Agent-Assisted Setup** - DIY configuration, Tawkie just helps\n\n## Architecture\n\n```\nTalkie → Telegram → OpenClaw → Tawkie.dev → Convex\n```\n\nSee [Architecture](/docs/architecture) for the interactive diagram.\n\n## Quick Links\n\n- [Setup Guide](/docs/setup) - DIY infrastructure setup\n- [Architecture](/docs/architecture) - System design\n- [GitHub](https://github.com/tawkiebot) - Source code\n\n## Project Context\n\n- **Type**: Agent / Bridge\n- **Stack**: Next.js, Convex, OpenClaw, @arach/speakeasy\n- **License**: Open source"
+    },
+    {
+      "id": "quickstart",
+      "title": "Quickstart",
+      "description": "Get started with Tawkie in 5 minutes",
+      "content": "# Quickstart\n\nGet Tawkie running in 5 minutes.\n\n## Prerequisites\n\n- [OpenClaw](https://openclaw.ai) account\n- [Talkie](https://usetalkie.com) app (iOS/Mac)\n- Node.js >= 18\n- npm, pnpm, or yarn\n- Vercel account (for deployment)\n- Convex account (for database)\n\n## Step 1: Clone the Repos\n\n```bash\ngit clone https://github.com/tawkiebot/tawkie.dev\ngit clone https://github.com/tawkiebot/tawkie\n```\n\n## Step 2: Configure Environment\n\nCreate `.env` in the `tawkie` directory:\n\n```bash\nELEVENLABS_API_KEY=sk_...\nMOLTBOOK_API_KEY=moltbook_sk_...\nAGENTMAIL_API_KEY=am_...\nCONVEX_DEV_TOKEN=dev:...\nTELEGRAM_BOT_TOKEN=...\nDISCORD_BOT_TOKEN=...\n```\n\n## Step 3: Deploy to Vercel\n\n```bash\ncd tawkie.dev\nnpx vercel --prod\n```\n\n## Step 4: Connect OpenClaw\n\nConfigure your Telegram/Discord bots in OpenClaw to point to the deployed URLs.\n\n## Verify Installation\n\nVisit https://tawkie.dev to see the landing page, then check /docs for full documentation.\n\n## Next Steps\n\n- [Architecture](/docs/architecture) - Understand the system\n- [Setup Guide](/docs/setup) - Detailed setup with all components"
+    },
+    {
+      "id": "setup",
+      "title": "Setup",
+      "content": "# Setup Guide\n\nTawkie uses a **BYO (Bring Your Own)** infrastructure model. You own your data.\n\n## Prerequisites\n\n1. **Cloudflare R2** bucket - [Sign up](https://developers.cloudflare.com/r2/)\n2. **Convex** account - [Sign up](https://convex.dev/)\n3. **Telegram bot** - [Create via @BotFather](https://t.me/BotFather)\n\n## Step 1: Set Up R2\n\n```bash\n# Create R2 bucket in Cloudflare dashboard\n# Get your R2 credentials:\n# - Account ID\n# - Access Key ID\n# - Secret Access Key\n```\n\nAdd to `~/dev/tawkie/.env`:\n```env\nR2_ACCOUNT_ID=\"your_account_id\"\nR2_ACCESS_KEY_ID=\"your_access_key\"\nR2_SECRET_ACCESS_KEY=\"your_secret_key\"\nR2_BUCKET_NAME=\"tawkie-memos\"\n```\n\n## Step 2: Set Up Convex\n\n```bash\ncd ~/dev/tawkie\nnpx convex login\nnpx convex dev  # Test locally\nnpx convex deploy  # Deploy to production\n```\n\nGet your Convex URL and add to `.env`:\n```env\nCONVEX_URL=\"https://your-project.convex.cloud\"\n```\n\n## Step 3: Set Up Telegram Bot\n\n1. Message @BotFather on Telegram\n2. Run `/newbot` and follow prompts\n3. Copy the bot token\n\nAdd to `.env`:\n```env\nTELEGRAM_BOT_TOKEN=\"your_bot_token\"\nTELEGRAM_CHAT_ID=\"your_chat_id\"\n```\n\n## Step 4: Test\n\n```bash\ncd ~/dev/tawkie\nnpm run dev\n```\n\n## Next Steps\n\n- [Architecture Overview](architecture.md)\n- [API Reference](api.md)"
+    }
+  ]
+}
