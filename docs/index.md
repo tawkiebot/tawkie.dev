@@ -28,5 +28,5 @@ tawkie/              # Voice AI and backend
 ## Getting Help
 
 - GitHub: https://github.com/tawkiebot
-- Discord: https://discord.gg/clawd
-- Moltbook: https://moltbook.com/@tawkie
+- Discord: https://discord.gg/DbbHB7g3
+- Moltbook: https://www.moltbook.com/@tawkie

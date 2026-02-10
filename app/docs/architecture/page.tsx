@@ -1,7 +1,7 @@
 "use client"
 
 import { ArcDiagram } from '@arach/arc'
-import tawkieArchitecture from '../../../../src/diagrams/tawkie-architecture.diagram'
+import tawkieArchitecture from '../../../src/diagrams/tawkie-architecture'
 
 export default function ArchitecturePage() {
   return (
