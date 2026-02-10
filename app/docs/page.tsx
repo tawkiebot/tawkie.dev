@@ -1,3 +1,5 @@
+"use client";
+
 export default function Docs() {
   return (
     <div style={{
@@ -29,28 +31,27 @@ export default function Docs() {
           tawkie
         </a>
         <div style={{ display: "flex", gap: "2.5rem" }}>
-          {[
-            { label: "features", href: "/#features" },
-            { label: "docs", href: "/docs" },
-            { label: "github", href: "https://github.com/tawkiebot" },
-          ].map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              style={{
-                color: item.label === "docs" ? "#e5e5e5" : "#666",
-                textDecoration: "none",
-                fontSize: "0.85rem",
-                textTransform: "capitalize",
-                letterSpacing: "0.05em",
-                transition: "color 0.3s ease",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#e5e5e5")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = item.label === "docs" ? "#e5e5e5" : "#666")}
-            >
-              {item.label}
-            </a>
-          ))}
+          <a href="/#features" style={{
+            color: "#666",
+            textDecoration: "none",
+            fontSize: "0.85rem",
+            textTransform: "capitalize",
+            letterSpacing: "0.05em",
+          }}>features</a>
+          <a href="/docs" style={{
+            color: "#e5e5e5",
+            textDecoration: "none",
+            fontSize: "0.85rem",
+            textTransform: "capitalize",
+            letterSpacing: "0.05em",
+          }}>docs</a>
+          <a href="https://github.com/tawkiebot" style={{
+            color: "#666",
+            textDecoration: "none",
+            fontSize: "0.85rem",
+            textTransform: "capitalize",
+            letterSpacing: "0.05em",
+          }}>github</a>
         </div>
       </nav>
 
@@ -95,39 +96,48 @@ export default function Docs() {
             Quick Links
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-            {[
-              { label: "Setup Guide", desc: "DIY infrastructure setup" },
-              { label: "Architecture", desc: "System design" },
-              { label: "GitHub", desc: "Source code" },
-            ].map((link) => (
-              <a
-                key={link.label}
-                href={link.label === "GitHub" ? "https://github.com/tawkiebot" : "#"}
-                style={{
-                  color: "#a3a3a3",
-                  textDecoration: "none",
-                  padding: "1rem",
-                  background: "linear-gradient(145deg, #0f0f0f 0%, #0a0a0a 100%)",
-                  border: "1px solid #171717",
-                  borderRadius: "6px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#262626";
-                  e.currentTarget.style.color = "#e5e5e5";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "#171717";
-                  e.currentTarget.style.color = "#a3a3a3";
-                }}
-              >
-                <span>{link.label}</span>
-                <span style={{ color: "#525252", fontSize: "0.85rem" }}>{link.desc}</span>
-              </a>
-            ))}
+            <a href="#" style={{
+              color: "#a3a3a3",
+              textDecoration: "none",
+              padding: "1rem",
+              background: "linear-gradient(145deg, #0f0f0f 0%, #0a0a0a 100%)",
+              border: "1px solid #171717",
+              borderRadius: "6px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}>
+              <span>Setup Guide</span>
+              <span style={{ color: "#525252", fontSize: "0.85rem" }}>DIY infrastructure setup</span>
+            </a>
+            <a href="#" style={{
+              color: "#a3a3a3",
+              textDecoration: "none",
+              padding: "1rem",
+              background: "linear-gradient(145deg, #0f0f0f 0%, #0a0a0a 100%)",
+              border: "1px solid #171717",
+              borderRadius: "6px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}>
+              <span>Architecture</span>
+              <span style={{ color: "#525252", fontSize: "0.85rem" }}>System design</span>
+            </a>
+            <a href="https://github.com/tawkiebot" style={{
+              color: "#a3a3a3",
+              textDecoration: "none",
+              padding: "1rem",
+              background: "linear-gradient(145deg, #0f0f0f 0%, #0a0a0a 100%)",
+              border: "1px solid #171717",
+              borderRadius: "6px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}>
+              <span>GitHub</span>
+              <span style={{ color: "#525252", fontSize: "0.85rem" }}>Source code</span>
+            </a>
           </div>
         </section>
 
@@ -142,35 +152,36 @@ export default function Docs() {
             Community
           </h2>
           <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-            {[
-              { label: "GitHub", href: "https://github.com/tawkiebot" },
-              { label: "Discord", href: "https://discord.gg/DbbHB7g3" },
-              { label: "Moltbook", href: "https://www.moltbook.com/u/tawkie" },
-            ].map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                style={{
-                  color: "#737373",
-                  textDecoration: "none",
-                  padding: "0.5rem 1rem",
-                  border: "1px solid #262626",
-                  borderRadius: "4px",
-                  fontSize: "0.85rem",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#404040";
-                  e.currentTarget.style.color = "#e5e5e5";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "#262626";
-                  e.currentTarget.style.color = "#737373";
-                }}
-              >
-                {link.label}
-              </a>
-            ))}
+            <a href="https://github.com/tawkiebot" style={{
+              color: "#737373",
+              textDecoration: "none",
+              padding: "0.5rem 1rem",
+              border: "1px solid #262626",
+              borderRadius: "4px",
+              fontSize: "0.85rem",
+            }}>
+              GitHub
+            </a>
+            <a href="https://discord.gg/DbbHB7g3" style={{
+              color: "#737373",
+              textDecoration: "none",
+              padding: "0.5rem 1rem",
+              border: "1px solid #262626",
+              borderRadius: "4px",
+              fontSize: "0.85rem",
+            }}>
+              Discord
+            </a>
+            <a href="https://www.moltbook.com/u/tawkie" style={{
+              color: "#737373",
+              textDecoration: "none",
+              padding: "0.5rem 1rem",
+              border: "1px solid #262626",
+              borderRadius: "4px",
+              fontSize: "0.85rem",
+            }}>
+              Moltbook
+            </a>
           </div>
         </section>
       </div>
