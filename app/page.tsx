@@ -29,10 +29,14 @@ export default function Home() {
           tawkie
         </span>
         <div style={{ display: "flex", gap: "2.5rem" }}>
-          {["features", "docs", "github"].map((item) => (
+          {[
+            { label: "features", href: "#features" },
+            { label: "docs", href: "/docs" },
+            { label: "github", href: "https://github.com/tawkiebot" },
+          ].map((item) => (
             <a
-              key={item}
-              href={item === "github" ? "https://github.com/tawkiebot" : "#"}
+              key={item.label}
+              href={item.href}
               style={{
                 color: "#666",
                 textDecoration: "none",
@@ -44,7 +48,7 @@ export default function Home() {
               onMouseEnter={(e) => (e.currentTarget.style.color = "#e5e5e5")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#666")}
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </div>
@@ -150,7 +154,7 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section style={{
+      <section id="features" style={{
         padding: "6rem 2rem",
         maxWidth: "900px",
         margin: "0 auto",
